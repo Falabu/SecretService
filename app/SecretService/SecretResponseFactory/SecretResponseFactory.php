@@ -15,7 +15,7 @@ class SecretResponseFactory implements ISecretResponseFactory
 
     public function make(array $data, int $status = 200, array $headers = []): Response
     {
-        $acceptHeader = $this->request->headers->get('Accept');
+        $acceptHeader = $this->request?->headers?->get('Accept');
 
         return match ($acceptHeader) {
             'application/xml' => $this->createResponse(XMLResponse::class, $data, $status, $headers),

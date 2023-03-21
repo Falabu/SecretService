@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(
             fn() => Secret::query()->where('expires_at', '<=', now())->delete()
-        );
+        )->everyMinute();
     }
 
     /**

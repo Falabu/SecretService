@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class SecretService implements ISecretService
 {
+    /**
+     * @param string $secret
+     * @param int $expireAfterViews
+     * @param int $expireAfter
+     * @return Model|Secret
+     */
     public function create(string $secret, int $expireAfterViews, int $expireAfter): Model|Secret
     {
         return Secret::query()->create([
@@ -17,6 +23,10 @@ class SecretService implements ISecretService
         ]);
     }
 
+    /**
+     * @param Secret $secret
+     * @return Model|Secret
+     */
     public function retrieve(Secret $secret): Model|Secret
     {
         event(new SecretRetrieved($secret));
@@ -24,6 +34,10 @@ class SecretService implements ISecretService
         return $secret;
     }
 
+    /**
+     * @param int $expireAfter
+     * @return string|null
+     */
     private function getExpiresAt(int $expireAfter): string|null
     {
         if ($expireAfter === 0) {

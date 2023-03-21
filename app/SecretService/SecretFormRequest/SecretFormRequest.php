@@ -4,6 +4,7 @@ namespace App\SecretService\SecretFormRequest;
 
 use App\SecretService\SecretResponseFactory\ISecretResponseFactory;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
@@ -20,6 +21,12 @@ class SecretFormRequest extends FormRequest
 
         $response = $secretResponse->make($responseData, 422);
 
+        /**
+         * Laravel makes a Response object, when a ValidationException thrown,
+         * But can't handle XMLResponses
+         * When response added to the exception laravel response with that
+         * @see Handler::convertValidationExceptionToResponse()
+         */
         throw new ValidationException($validator, $response);
     }
 

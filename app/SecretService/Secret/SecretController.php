@@ -15,7 +15,7 @@ class SecretController extends Controller
 
     public function __construct(
         private readonly ISecretService $secretService,
-        private readonly ISecretResponseFactory $response
+        private readonly ISecretResponseFactory $responseFactory
     ) {
     }
 
@@ -28,7 +28,7 @@ class SecretController extends Controller
         $secret = $this->secretService->create($secret, $expireAfterViews, $expireAfter);
         $secretResource = SecretResource::make($secret);
 
-        return $this->response->make($secretResource->resolve());
+        return $this->responseFactory->make($secretResource->resolve());
     }
 
     public function show(Secret $secret): Response
@@ -36,6 +36,6 @@ class SecretController extends Controller
         $secretModel = $this->secretService->retrieve($secret);
         $secretResource = SecretResource::make($secretModel);
 
-        return $this->response->make($secretResource->resolve());
+        return $this->responseFactory->make($secretResource->resolve());
     }
 }
