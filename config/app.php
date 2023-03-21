@@ -194,6 +194,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\SecretService\SecretResponseFactory\ResponseServiceProvider::class,
+        App\SecretService\Secret\SecretServiceProvider::class,
 
     ],
 
